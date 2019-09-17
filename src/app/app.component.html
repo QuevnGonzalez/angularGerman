@@ -1,0 +1,151 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta http-equiv="X-UA-Compatible" content="ie=edge">
+  <title>Document</title>
+</head>
+<body>
+  
+  <div class="container app">
+   <div class="row">
+    <div class="col-sm-8 flex-center flex-column">
+      <h1 class="animated bounce infinite">{{title}}</h1>
+    </div>
+    <div class="col-sm-4 alert alert-success alert-dismissable" *ngIf = "msg">
+       <a href="#" class="close" (click)="closeAlert()">&times;</a>
+       {{msg}}
+    </div>
+  </div>
+  <div class="row">
+      <mdb-carousel class="carousel slide carousel-fade" [animation]="'fade'">
+          <mdb-carousel-item>
+            <img class="d-block w-100" src="https://mdbootstrap.com/img/Photos/Slides/img%20(68).jpg" alt="First slide">
+          </mdb-carousel-item>
+          <mdb-carousel-item>
+            <img class="d-block w-100" src="https://mdbootstrap.com/img/Photos/Slides/img%20(6).jpg" alt="Second slide">
+          </mdb-carousel-item>
+          <mdb-carousel-item>
+            <img class="d-block w-100" src="https://mdbootstrap.com/img/Photos/Slides/img%20(9).jpg" alt="Third slide">
+          </mdb-carousel-item>
+        </mdb-carousel>
+  </div>
+        <div class="col-sm-12">
+          <h2>Crear Datos:</h2>
+          <div class="md-form ">
+              <mdb-icon fas icon="envelope" class="prefix"></mdb-icon>
+              <input mdbInput type="text" id="form2" name="name" [(ngModel)] = "model.name" class="form-control">
+              <label for="name">Nombre:</label>
+            </div>
+            <div class="md-form ">
+                <mdb-icon fas icon="envelope" class="prefix"></mdb-icon>
+                <input mdbInput type="text" id="form2" name="position" [(ngModel)] = "model.position" class="form-control">
+                <label for="position">Posicion o cargo:</label>
+              </div>
+              <div class="md-form ">
+                  <mdb-icon fas icon="envelope" class="prefix"></mdb-icon>
+                  <input mdbInput type="email" id="form2" name="email"[(ngModel)] = "model.email" class="form-control">
+                  <label for="email">Correo:</label>
+                </div>
+                <div class="md-form flex-center">              
+                    <div class="col-sm-10 col-sm-offset-2 flex-center">
+                      <button type="submit" (click) = "addEmpleado()" mdbBtn class=" btn-block  flex-center" color="success" mdbWavesEffect>Guardar</button>
+                    </div>
+              </div>
+        </div>
+        <div class="row">
+          <div class="col-sm-8">
+            <h2>Leer los Datos:</h2>
+            <!-- Editable table -->
+<div class="card">
+    <h3 class="card-header text-center font-weight-bold text-uppercase py-4">Tabla de personas</h3>
+    <div class="card-body">
+      <div id="table" class="table-editable">
+        <span class="table-add float-right mb-3 mr-2">
+         
+        </span>
+        <table class="table table-bordered table-responsive-md table-striped text-center">
+          <tr>
+            <th class="text-center">Nombre</th>
+            <th class="text-center">Posicion o cargo</th>
+            <th class="text-center">Correo</th>
+            <th class="text-center">Editar</th>
+            <th class="text-center">Eliminar</th>
+            
+          </tr>
+          <tr *ngFor="let empleado of empleados; let i = index">
+            <td>
+              <span (keyup)="changeValue(id, 'name', $event)" (blur)="updateList(id, 'name', $event)" contenteditable="true">{{empleado.name}}</span>
+            </td>
+            <td>
+              <span contenteditable="true" (keyup)="changeValue(id, 'age', $event)" (blur)="updateList(id, 'age', $event)">{{empleado.position}}</span>
+            </td>
+            <td>
+                <span contenteditable="true" (keyup)="changeValue(id, 'age', $event)" (blur)="updateList(id, 'age', $event)">{{empleado.email}}</span>
+              </td>
+            <td>
+            <span class="table-up">
+              <button type="button" mdbBtn color="warning" rounded="true" size="sm" class="my-0" (click)="editEmpleado(i)" >Editar</button>
+            </span>
+            </td>
+            <td>
+              <span class="table-remove">
+                <button type="button" mdbBtn color="danger" rounded="true" size="sm" class="my-0" (click)="deleteEmpleado(i)">Remove</button>
+              </span>
+            </td>
+          </tr>
+        </table>
+      </div>
+    </div>
+  </div>
+  <!-- Editable table -->
+  </div>
+           <div class="col-sm-4" [hidden] = "hideUpdate">
+            <h2>Actualizar Datos:</h2>
+            <div class="md-form ">
+                <mdb-icon fas icon="envelope" class="prefix"></mdb-icon>
+                <input mdbInput type="text" id="form2" name="name" [(ngModel)] = "model2.name" class="form-control">
+                <label for="name">Nombre:</label>
+              </div>
+              <div class="md-form ">
+                  <mdb-icon fas icon="envelope" class="prefix"></mdb-icon>
+                  <input mdbInput type="text" id="form2" name="position" [(ngModel)] = "model2.position" class="form-control">
+                  <label for="position">Posicion o cargo:</label>
+                </div>
+                <div class="md-form ">
+                    <mdb-icon fas icon="envelope" class="prefix"></mdb-icon>
+                    <input mdbInput type="email" id="form2" name="email" [(ngModel)] = "model2.email" class="form-control">
+                    <label for="email">Correo:</label>
+                  </div>
+                  <div class="col-sm-10 col-sm-offset-2">
+                 <button type="button" mdbBtn color="success" mdbWavesEffect (click) = "updateEmpleado()">Actualizar</button>
+                </div>
+          </div>
+        </div>
+
+  </div>
+  
+
+  <!-- /Start your project here-->
+
+
+
+<script src="https://cdnjs.cloudflare.com/ajax/libs/wow/1.1.2/wow.min.js"></script>
+<script>
+
+wow = new WOW({
+boxClass: 'wow', // default
+animateClass: 'animated', // default
+offset: 0, // default
+mobile: true, // default
+live: true // default
+})
+wow.init();
+
+new WOW().init();
+</script>
+</body>
+</html>
+
+  
